@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
     private int damage = 20;
     private bool invincible = false;
     public float invincibilityTime = 1f;
-    public static int counter = 0;
  
     void Awake()
     {
@@ -52,13 +51,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void OnLanding(){
-
-        counter += 1;
-        if (counter == 1){
-            print(counter);
-            animator.SetBool("Jump", false);
-            counter = 0;
-        }
+        
+        animator.SetBool("Jump", false);
 
     }
 
@@ -94,6 +88,10 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(Invulnerability());
             } 
             healthBar.SetHealth(currentHealth);
+        }
+
+        if(collision.gameObject.tag == "Wall"){
+			Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
 
     }

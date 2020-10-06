@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour {
 
 	public GameObject deathEffect;
 	private Rigidbody2D m_Rigidbody2D;
+	public GameObject youWin;
+	
 	void Start(){
 		if (tag == "Boss"){
 			m_Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -27,7 +29,7 @@ public class Enemy : MonoBehaviour {
 			Die();
             SoundManager.PlaySound("enemyDeath");
 			if(tag == "Boss"){
-				SceneManager.LoadScene(0);
+				youWin.GetComponent<WinScreen>().Win();
 			}
 		}
 	}
@@ -45,12 +47,6 @@ public class Enemy : MonoBehaviour {
 			{
 				Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 			}
-			// else if (collision.gameObject.tag == "Player")
-			// {
-			// 	Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-			// }
-
-
 			
 		}
 
